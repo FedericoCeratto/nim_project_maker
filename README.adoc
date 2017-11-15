@@ -1,0 +1,46 @@
+=== Nim project maker
+
+Initialize a Nim project directory
+
+.Features:
+- create project directory
+- initialize git
+- copy template files, including:
+- nim.cfg including hardening flags
+- systemd service file
+- Debian (and derivatives) packaging structure. Create system user and running directory.
+- Example unit test
+- Example code
+
+A new project can build and install a working daemon straight away.
+
+.Requirements:
+- git, with the user.name and user.email globals
+- optional: GH_USERNAME env var - if set a GitHub remote is configured
+- optional: dpkg-buildpackage, debi to build and install Debian packages
+
+.Install:
+[source, bash]
+----
+nimble install nim_project_maker
+----
+
+.Usage:
+[source, bash]
+----
+nim_project_maker <projectname>
+----
+
+The project name can contain mixed case and underscore but no hypens or spaces.
+The name used for the module, binary, system user will be lowercase and without underscores.
+
+.Deb build and install
+[source, bash]
+----
+nim_project_maker <projectname>
+nimble build_deb
+nimble install_deb
+
+sudo systemctl status <name>
+sudo journalctl -f --identifier=<name>
+----
